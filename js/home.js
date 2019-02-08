@@ -200,7 +200,8 @@
         score = level_score + bonus_score;
         console.log(score);
     }
-
+ //   $(".modal-overlay").show();
+  //  $(".modal").show();
     // clearInterval(timer);
 
     Memory.init(cards);
