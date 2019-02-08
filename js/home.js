@@ -6,7 +6,9 @@
 
 (function () {
 
-    var Click = 0;
+
+    var time = 0;
+    var moves = 0;
     var Memory = {
 
         init: function (cards) {
@@ -40,8 +42,7 @@
         cardClicked: function () {
             var _ = Memory;
             var $card = $(this);
-            Click = Click + 1;
-            alert(Click);
+            moves = moves + 1;
             if (!_.paused && !$card.find(".inside").hasClass("matched") && !$card.find(".inside").hasClass("picked")) {
                 $card.find(".inside").addClass("picked");
                 if (!_.guess) {
@@ -74,6 +75,7 @@
         showModal: function () {
             this.$overlay.show();
             this.$modal.fadeIn("slow");
+            clearInterval(timer);
         },
 
         hideModal: function () {
@@ -182,7 +184,26 @@
         }
     ];
 
+
+
+    var timer = setInterval(function () { oneSecondFunction(moves); }, 1000);
+
+    var level, level_score, max_bonus, bonus_score, score;
+    function oneSecondFunction(moves) {
+        time = time + 1;
+        $("#yourMove").html(moves);
+        $("#yourTime").html(time + " <small>s</small>");
+        level = 1;
+        level_score = level * 100;
+        max_bonus = 100000;
+        bonus_score = max_bonus / (time + moves + level * 10);
+        score = level_score + bonus_score;
+        console.log(score);
+    }
+
+    // clearInterval(timer);
+
     Memory.init(cards);
 
-
 })();
+

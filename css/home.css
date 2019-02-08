@@ -13,7 +13,7 @@ body {
     -webkit-transition: .5s;
     transition: .5s;
     min-height: 100%;
-    font-family: "Arial", sans-serif;
+    font-family: 'Quantico', sans-serif;
 }
 
 .wrap {
@@ -202,7 +202,7 @@ body {
     .modal .winner {
         font-size: 80px;
         text-align: center;
-        font-family: "Anton", sans-serif;
+        font-family: 'Open Sans Condensed', sans-serif;
         color: #4d4d4d;
         text-shadow: 0px 3px 0 black;
     }
@@ -214,7 +214,7 @@ body {
 }
 
 .modal .restart {
-    font-family: "Anton", sans-serif;
+    font-family: 'Open Sans Condensed', sans-serif;
     margin: 30px auto;
     padding: 20px 30px;
     display: block;
