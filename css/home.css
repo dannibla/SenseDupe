@@ -7,7 +7,11 @@ html, body {
 }
 
 body {
-    background: black;
+    background: #43cea2;
+    background: -webkit-linear-gradient(to right, #185a9d, #43cea2);
+    background: linear-gradient(to right, #185a9d, #43cea2);
+    -webkit-transition: .5s;
+    transition: .5s;
     min-height: 100%;
     font-family: "Arial", sans-serif;
 }
@@ -16,7 +20,9 @@ body {
     position: relative;
     height: 100%;
     min-height: 500px;
-    padding-bottom: 20px;
+    padding: 5px;
+    padding-top: 60px;
+    overflow: hidden;
 }
 
 .game {
@@ -48,6 +54,37 @@ body {
     }
 }
 
+.header {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 60px;
+}
+
+    .header .score {
+        display: inline-block;
+        padding: 10px;
+    }
+
+    .header .best {
+        display: inline-block;
+        float: right;
+        text-align: right;
+        padding: 10px;
+    }
+
+        .header .score h5,
+        .header .best h5 {
+            font-size: 24px;
+            color: #fff;
+        }
+
+        .header .score h4,
+        .header .best h4 {
+            font-size: 20px;
+            color: #fff;
+        }
+
 .card {
     float: left;
     width: 16.66666%;
@@ -77,7 +114,8 @@ body {
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     transition: .4s ease-in-out;
-    background: white;
+    background: #fcfffe;
+    border-radius: 10px;
 }
 
     .card .inside.picked, .card .inside.matched {
@@ -93,7 +131,6 @@ body {
     }
 
 .card .front, .card .back {
-    border: 1px solid black;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     position: absolute;
@@ -109,6 +146,9 @@ body {
         display: block;
         margin: 0 auto;
         max-height: 100%;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
     }
 
 .card .front {

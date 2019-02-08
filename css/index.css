@@ -157,7 +157,7 @@ button {
     cursor: pointer;
     font-family: monospace;
     font-weight: 700;
-    letter-spacing: .15em;
+    letter-spacing: .05em;
     font-size: 1.4em;
     color: #fb0505;
     -webkit-transition: .5s;
