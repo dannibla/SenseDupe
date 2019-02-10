@@ -36,7 +36,9 @@
 
         binding: function () {
             this.$memoryCards.on("click", this.cardClicked);
-            this.$restartButton.on("click", $.proxy(this.reset, this));
+            this.$restartButton.on("click", function () {
+                location.reload()
+            });
         },
         // kinda messy but hey
         cardClicked: function () {
@@ -75,6 +77,7 @@
         showModal: function () {
             this.$overlay.show();
             this.$modal.fadeIn("slow");
+            $("#quot").html(rand);
             clearInterval(timer);
         },
 
@@ -183,8 +186,14 @@
             id: 12
         }
     ];
-
-
+    var winQuotes = ['Think little goals and expect little achievements. Think big goals and win big success.',
+        'You were born to win, but to be a winner, you must plan to win, prepare to win, and expect to win.',
+        'The true competitors, though, are the ones who always play to win.',
+        'Sometimes it is better to lose and do the right thing than to win and do the wrong thing.',
+        'To be a good loser is to learn how to win.',
+        'I race to win. If I am on the bike or in a car it will always be the same.',
+        'You can never quit. Winners never quit, and quitters never win.']
+    var rand = winQuotes[Math.floor(Math.random() * winQuotes.length)];
 
     var timer = setInterval(function () { oneSecondFunction(moves); }, 1000);
 
@@ -200,10 +209,9 @@
         score = level_score + bonus_score;
         console.log(score);
     }
- //   $(".modal-overlay").show();
-  //  $(".modal").show();
-    // clearInterval(timer);
-
+    $(".modal-overlay").show();
+    $(".modal").show();
+    $("#quot").html(rand);
     Memory.init(cards);
 
 })();

@@ -25,11 +25,11 @@
 </head>
 <body>
     <div class="header">
-        <div class="score">
+        <div class="move">
             <h5>MOVE</h5>
             <h4 id="yourMove">0</h4>
         </div>
-        <div class="best">
+        <div class="time">
             <h5>TIME</h5>
             <h4 id="yourTime">0 s</h4>
         </div>
@@ -38,9 +38,18 @@
         <div class="game"></div>
         <div class="modal-overlay">
             <div class="modal">
-                <h2 class="winner">You Rock!</h2>
+                <div class="result">
+                    <div class="score">
+                        <h5>SCORE</h5>
+                        <h4 id="yourScore">0000</h4>
+                    </div>
+                    <div class="best">
+                        <h5>BEST</h5>
+                        <h4 id="yourBest">0000</h4>
+                    </div>
+                </div>
+                <h2 class="winner" id="quot"></h2>
                 <button class="restart">Play Again?</button>
-                <!--<p class="message">Developed on <a href="https://codepen.io">CodePen</a> by <a href="https://codepen.io/natewiley">Nate Wiley</a></p>-->
                 <p class="share-text">Share it?</p>
                 <ul class="social">
                     <li><a target="_blank" class="twitter" href="https://twitter.com/share?url=https://sense-dupe.netlify.com/"><span class="fa fa-twitter"></span></a></li>

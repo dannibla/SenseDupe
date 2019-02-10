@@ -61,29 +61,29 @@ body {
     height: 60px;
 }
 
-    .header .score {
+    .header .move {
         display: inline-block;
         padding: 10px;
     }
 
-    .header .best {
+    .header .time {
         display: inline-block;
         float: right;
         text-align: right;
         padding: 10px;
     }
 
-        .header .score h5,
-        .header .best h5 {
+        .header .move h5,
+        .header .time h5 {
             font-size: 24px;
             color: #fff;
         }
 
-        .header .score h4,
-        .header .best h4 {
-            font-size: 20px;
-            color: #fff;
-        }
+    .header .move h4,
+    .header .time h4 {
+        font-size: 20px;
+        color: #fff;
+    }
 
 .card {
     float: left;
@@ -187,10 +187,10 @@ body {
     display: none;
     position: relative;
     width: 500px;
-    height: 400px;
+    height: auto;
     max-height: 90%;
     max-width: 90%;
-    min-height: 380px;
+    min-height: 430px;
     margin: 0 auto;
     background: white;
     top: 50%;
@@ -200,37 +200,74 @@ body {
 }
 
     .modal .winner {
-        font-size: 80px;
+        font-size: 30px;
+        padding: 30px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         text-align: center;
-        font-family: 'Open Sans Condensed', sans-serif;
         color: #4d4d4d;
-        text-shadow: 0px 3px 0 black;
     }
+
+    .modal .result {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 60px;
+    }
+
+        .modal .result .score {
+            display: inline-block;
+            padding: 10px;
+        }
+
+        .modal .result .best {
+            display: inline-block;
+            float: right;
+            text-align: right;
+            padding: 10px;
+        }
+
+            .modal .result .score h5,
+            .modal .result .best h5 {
+                font-size: 24px;
+            }
+
+            .modal .result .score h4,
+            .modal .result .best h4 {
+                font-size: 20px;
+            }
+
 
 @media (max-width: 480px) {
     .modal .winner {
-        font-size: 60px;
+        font-size: 24px;
     }
 }
 
 .modal .restart {
-    font-family: 'Open Sans Condensed', sans-serif;
-    margin: 30px auto;
-    padding: 20px 30px;
     display: block;
-    font-size: 30px;
-    border: none;
-    background: #4d4d4d;
-    background: linear-gradient(#4d4d4d, #222);
-    border: 1px solid #222;
-    border-radius: 5px;
-    color: white;
-    text-shadow: 0px 1px 0 black;
+    text-align: center;
+    padding: 5px 15px;
+    border-radius: 10px;
+    border: 0;
+    background: #43cea2;
+    background: -webkit-linear-gradient(to right, #185a9d, #43cea2);
+    background: linear-gradient(to right, #185a9d, #43cea2);
     cursor: pointer;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.1em;
+    line-height: 1.4em;
+    color: #ffffff;
+    margin: 30px auto;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .5s;
+    transition: .5s;
 }
 
     .modal .restart:hover {
-        background: linear-gradient(#222, black);
+        -webkit-transform: scale(1.2);
+        transform: scale(1.2);
     }
 
 .modal .message {
