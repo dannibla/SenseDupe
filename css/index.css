@@ -15,7 +15,7 @@ html, body {
 }
 
 body {
-    font-family: cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: #43cea2;
     background: -webkit-linear-gradient(to right, #185a9d, #43cea2);
     background: linear-gradient(to right, #185a9d, #43cea2);
@@ -142,6 +142,7 @@ div.content {
 .btn {
     width: auto;
     margin: 0 auto;
+    padding-top: 25px;
     text-align: center;
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
@@ -162,10 +163,10 @@ button {
     border-radius: 5px;
     background: #ffffff;
     cursor: pointer;
-    font-family: monospace;
-    font-weight: 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
     letter-spacing: .05em;
-    font-size: 1.4em;
+    font-size: 1.3em;
     color: #fb0505;
     -webkit-transition: .5s;
     transition: .5s;
@@ -173,7 +174,7 @@ button {
 
 @media screen and (max-width: 812px) {
     button {
-        font-size: .9em;
+        font-size: 1.2em;
     }
 }
 

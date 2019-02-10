@@ -207,11 +207,11 @@
         max_bonus = 100000;
         bonus_score = max_bonus / (time + moves + level * 10);
         score = level_score + bonus_score;
-        console.log(score);
+        $("#yourScore").html(Math.round(score));
     }
-    $(".modal-overlay").show();
-    $(".modal").show();
-    $("#quot").html(rand);
+    //  $(".modal-overlay").show();
+    //   $(".modal").show();
+    //  $("#quot").html(rand);
     Memory.init(cards);
 
 })();

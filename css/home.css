@@ -1,5 +1,10 @@
 * {
     box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
 }
 
 html, body {
@@ -13,7 +18,7 @@ body {
     -webkit-transition: .5s;
     transition: .5s;
     min-height: 100%;
-    font-family: 'Quantico', sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .wrap {
@@ -246,9 +251,10 @@ body {
 .modal .restart {
     display: block;
     text-align: center;
-    padding: 5px 15px;
-    border-radius: 10px;
+    padding: 10px 15px;
+    border-radius: 4px;
     border: 0;
+    font-weight: 600;
     background: #43cea2;
     background: -webkit-linear-gradient(to right, #185a9d, #43cea2);
     background: linear-gradient(to right, #185a9d, #43cea2);
