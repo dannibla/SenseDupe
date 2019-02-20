@@ -4,22 +4,33 @@ app.config(function ($routeProvider) {
         .when("/", {
             templateUrl: "./views/home.html"
         })
-        .when("/play", {
+        .when("/level", {
+            templateUrl: "./views/level.html",
+            controller: "levelCtrl"
+        })
+        .when("/level/:play", {
             templateUrl: "./views/play.html",
-            controller: "AppCtrl"
+            controller: "playCtrl"
         });
 });
 
-app.controller('AppCtrl', function ($scope, $http) {
+app.controller('levelCtrl', function ($scope, $http) {
+    $http.get("sensedupe.json")
+        .then(function (response) {
+            $scope.myLevel = response.data;
+        });
+});
+app.controller('playCtrl', function ($scope, $routeParams) {
 
     var Memory = {
-        init: function (cards) {
+        init: function (level) {
+            var cards = [];
             this.$head = $(".header");
             this.$game = $(".game");
             this.$modal = $(".modal");
             this.$overlay = $(".modal-overlay");
             this.$restartButton = $("button.restart");
-            this.$cards = this.setId(cards);
+            this.$cards = this.setId(cards, level);
             this.cardsArray = $.merge(cards, cards);
             this.shuffleCards(this.cardsArray);
             this.setup();
@@ -38,14 +49,16 @@ app.controller('AppCtrl', function ($scope, $http) {
             this.level = 1;
             this.binding();
         },
-        quotes: ['Think little goals and expect little achievements. Think big goals and win big success.',
+        quotes: [
+            'Think little goals and expect little achievements. Think big goals and win big success.',
             'You were born to win, but to be a winner, you must plan to win, prepare to win, and expect to win.',
             'The true competitors, though, are the ones who always play to win.',
             'Sometimes it is better to lose and do the right thing than to win and do the wrong thing.',
             'To be a good loser is to learn how to win.',
             'I race to win. If I am on the bike or in a car it will always be the same.',
-            'You can never quit. Winners never quit, and quitters never win.'],
-        setId: function (source) {
+            'You can never quit. Winners never quit, and quitters never win.'
+        ],
+        setId: function (data, path) {
             function dynamicId() {
                 var text = "";
                 var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -53,10 +66,13 @@ app.controller('AppCtrl', function ($scope, $http) {
                     text += possible.charAt(Math.floor(Math.random() * possible.length));
                 return text;
             }
-            source.forEach((item) => {
-                item.id = dynamicId();
-            });
-            this.setId = source;
+            for (var i = 1; i <= 12; i++) {
+                var obj = {};
+                obj["id"] = dynamicId();
+                obj["img"] = "./images/" + path + "/" + i + ".png";
+                data.push(obj);
+            };
+            this.setId = data;
         },
         shuffleCards: function (cardsArray) {
             this.$cards = $(this.shuffle(this.cardsArray));
@@ -68,7 +84,7 @@ app.controller('AppCtrl', function ($scope, $http) {
                 location.reload()
             });
             _.interval = setInterval(function () {
-                _.time ++;
+                _.time++;
                 $(".move h4").html(_.move);
                 $(".time h4").html(_.time + " <small>s</small>");
                 level_score = _.level * 100;
@@ -81,7 +97,7 @@ app.controller('AppCtrl', function ($scope, $http) {
         cardClicked: function () {
             var _ = Memory;
             var $card = $(this);
-            _.move ++;
+            _.move++;
             $(".move h4").html(_.move);
             if (!_.paused && !$card.find(".inside").hasClass("matched") && !$card.find(".inside").hasClass("picked")) {
                 $card.find(".inside").addClass("picked");
@@ -111,11 +127,12 @@ app.controller('AppCtrl', function ($scope, $http) {
             }, 1000);
         },
         showModal: function () {
+            var _ = Memory;
             this.$overlay.show();
             this.$modal.fadeIn("slow");
-            $quotes = Memory.quotes[Math.floor(Math.random() * Memory.quotes.length)];
+            $quotes = _.quotes[Math.floor(Math.random() * _.quotes.length)];
             $(".winner").html($quotes);
-            clearInterval(Memory.interval);
+            clearInterval(_.interval);
         },
         hideModal: function () {
             this.$overlay.hide();
@@ -159,11 +176,7 @@ app.controller('AppCtrl', function ($scope, $http) {
         }
     };
 
-    $http.get("sensedupe.json")
-        .then(function (response) {
-            $scope.myWelcome = response.data;
-            Memory.init(response.data);
-        });
+    Memory.init($routeParams.play);
 
 
 });
