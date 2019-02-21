@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ["ngRoute"]);
+var app = angular.module("myApp", ["ngRoute", "ngStorage"]);
 app.config(function ($routeProvider) {
     $routeProvider
         .when("/", {
@@ -14,12 +14,16 @@ app.config(function ($routeProvider) {
         });
 });
 
-app.controller('levelCtrl', function ($scope, $http) {
-    $http.get("sensedupe.json")
-        .then(function (response) {
-            $scope.myLevel = response.data;
-        });
-});
+app.controller('levelCtrl', ['$scope', '$http', '$localStorage', function ($scope, $http, $localStorage) {
+    if (!$localStorage.gameData) {
+        $http.get("sensedupe.json")
+            .then(function (response) {
+                $scope.myLevel = response.data;
+            });
+    } else {
+        $scope.myLevel = $localStorage.gameData;
+    }
+}]);
 app.controller('playCtrl', function ($scope, $routeParams) {
 
     var Memory = {
