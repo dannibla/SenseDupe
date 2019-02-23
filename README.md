@@ -20,3 +20,16 @@ To add your level, fork this repository, add your level name, path of the game-i
     }
 ]
 ```
+
+&nbsp;
+
+### Improvements and Bugs
+Please feel free to open a new issue [here](https://github.com/dannibla/SenseDupe/issues) with your suggestions or any bugs which you may have come across.
+
+&nbsp;
+
+## Data
+While there is no official api, all the game levels are present in the `sensedupe.json` file. The code below is an example of fetching the data via a CURL request
+```
+curl -i https://raw.githubusercontent.com/dannibla/SenseDupe/master/sensedupe.json
+```
