@@ -1,5 +1,4 @@
-# Sense Dupe
-Sense Dupe is the memory puzzle game, if (can) solve ? check your memory IQ.
+
 
 ## About
 Sense Dupe is the memory puzzle game, a community contributed various levels. challenge the levels
