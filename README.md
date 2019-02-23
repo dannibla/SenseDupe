@@ -1,7 +1,8 @@
-
-
 ## About
-Sense Dupe is the memory puzzle game, a community contributed various levels. challenge the levels
+Sense Dupe is the memory puzzle game, a community contributed various levels.
+contribute & challenge the levels, if (can) solve ? check your memory IQ.
+
+&nbsp;
 
 ## Contributing
 Adding a game level to the library is very simple. All the level are from a `sensedupe.json` file and game images in the root of project.
@@ -33,3 +34,15 @@ While there is no official api, all the game levels are present in the `sensedup
 ```
 curl -i https://raw.githubusercontent.com/dannibla/SenseDupe/master/sensedupe.json
 ```
+
+&nbsp;
+
+## License
+
+[MIT](https://github.com/dannibla/SenseDupe/blob/master/LICENSE.md)
+
+&nbsp;
+
+<p align="center">
+<sub><sup>A funny project by <a href="https://twitter.com/dannibla_">#dannibla</a></sup></sub>
+</p>
