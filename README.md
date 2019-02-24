@@ -30,8 +30,6 @@ While there is no official api, all the game levels are present in the `sensedup
 curl -i https://raw.githubusercontent.com/dannibla/SenseDupe/master/sensedupe.json
 ```
 
-&nbsp;
-
 ## License
 
 [MIT](https://github.com/dannibla/SenseDupe/blob/master/LICENSE.md)
