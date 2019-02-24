@@ -2,8 +2,6 @@
 Sense Dupe is the memory puzzle game, a community contributed various levels.
 contribute & challenge the levels, if (can) solve ? check your memory IQ.
 
-&nbsp;
-
 ## Contributing
 Adding a game level to the library is very simple. All the level are from a `sensedupe.json` file and game images in the root of project.
 
