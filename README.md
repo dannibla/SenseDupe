@@ -22,8 +22,6 @@ To add your level, fork this repository, add your level name, path of the game-i
 ]
 ```
 
-&nbsp;
-
 ### Improvements and Bugs
 Please feel free to open a new issue [here](https://github.com/dannibla/SenseDupe/issues) with your suggestions or any bugs which you may have come across.
 
