@@ -1,3 +1,4 @@
+'use strict';
 var app = angular.module("myApp", ["ngRoute", "ngStorage"]);
 app.config(function ($routeProvider) {
     $routeProvider
@@ -14,27 +15,28 @@ app.config(function ($routeProvider) {
         });
 });
 
-app.controller('levelCtrl', ['$scope', '$http', '$localStorage', function ($scope, $http, $localStorage) {
+app.controller('levelCtrl', function ($scope, $http, $localStorage) {
     if (!$localStorage.gameData) {
         $http.get("sensedupe.json")
             .then(function (response) {
                 $scope.myLevel = response.data;
+                $localStorage.gameData = $scope.myLevel;
             });
     } else {
         $scope.myLevel = $localStorage.gameData;
     }
-}]);
-app.controller('playCtrl', function ($scope, $routeParams) {
+});
+app.controller('playCtrl', function ($routeParams, $localStorage) {
 
     var Memory = {
-        init: function (level) {
+        init: function (path) {
             var cards = [];
             this.$head = $(".header");
             this.$game = $(".game");
             this.$modal = $(".modal");
             this.$overlay = $(".modal-overlay");
             this.$restartButton = $("button.restart");
-            this.$cards = this.setId(cards, level);
+            this.$cards = this.setId(cards, path);
             this.cardsArray = $.merge(cards, cards);
             this.shuffleCards(this.cardsArray);
             this.setup();
@@ -66,8 +68,9 @@ app.controller('playCtrl', function ($scope, $routeParams) {
             function dynamicId() {
                 var text = "";
                 var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < 5; i++) {
                     text += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
                 return text;
             }
             for (var i = 1; i <= 12; i++) {
@@ -75,27 +78,22 @@ app.controller('playCtrl', function ($scope, $routeParams) {
                 obj["id"] = dynamicId();
                 obj["img"] = "./images/" + path + "/" + i + ".png";
                 data.push(obj);
-            };
+            }
             this.setId = data;
         },
-        shuffleCards: function (cardsArray) {
+        shuffleCards: function () {
             this.$cards = $(this.shuffle(this.cardsArray));
         },
         binding: function () {
             var _ = Memory;
             this.$memoryCards.on("click", this.cardClicked);
             this.$restartButton.on("click", function () {
-                location.reload()
+                location.reload();
             });
             _.interval = setInterval(function () {
                 _.time++;
                 $(".move h4").html(_.move);
                 $(".time h4").html(_.time + " <small>s</small>");
-                level_score = _.level * 100;
-                max_bonus = 100000;
-                bonus_score = max_bonus / (_.time + _.move + _.level * 10);
-                score = level_score + bonus_score;
-                $(".score h4").html(Math.round(score));
             }, 1000);
         },
         cardClicked: function () {
@@ -107,7 +105,7 @@ app.controller('playCtrl', function ($scope, $routeParams) {
                 $card.find(".inside").addClass("picked");
                 if (!_.guess) {
                     _.guess = $(this).attr("data-id");
-                } else if (_.guess == $(this).attr("data-id") && !$(this).hasClass("picked")) {
+                } else if (_.guess === $(this).attr("data-id") && !$(this).hasClass("picked")) {
                     $(".picked").addClass("matched");
                     _.guess = null;
                 } else {
@@ -118,24 +116,43 @@ app.controller('playCtrl', function ($scope, $routeParams) {
                         Memory.paused = false;
                     }, 600);
                 }
-                if ($(".matched").length == $(".card").length) {
+                if ($(".matched").length === $(".card").length) {
                     _.win();
                 }
             }
         },
         win: function () {
+            var _ = Memory;
             this.paused = true;
+            var level_score, max_bonus, score;
+            level_score = _.level * 100;
+            max_bonus = 100000;
+            bonus_score = max_bonus / (_.time + _.move + _.level * 10);
+            score = level_score + bonus_score;
+            $(".score h4").html(Math.round(score));
             setTimeout(function () {
-                Memory.showModal();
-                Memory.$game.fadeOut();
+                _.showModal(score);
+                _.$game.fadeOut();
             }, 1000);
         },
-        showModal: function () {
+        showModal: function (score) {
             var _ = Memory;
             this.$overlay.show();
             this.$modal.fadeIn("slow");
             $quotes = _.quotes[Math.floor(Math.random() * _.quotes.length)];
             $(".winner").html($quotes);
+            if ($localStorage.gameData && $routeParams.play) {
+                $localStorage.gameData.forEach(function (data) {
+                    if (data.path === $routeParams.play) {
+                        if (!data.best || score > data.best) {
+                            data["best"] = Math.round(score);
+                            $(".best h4").html(Math.round(score));
+                        } else if (data.best > score) {
+                            $(".best h4").html(Math.round(data.best));
+                        }
+                    }
+                });
+            }
             clearInterval(_.interval);
         },
         hideModal: function () {

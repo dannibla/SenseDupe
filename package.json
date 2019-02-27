@@ -1,0 +1,9 @@
+{
+  "name": "local-minifier",
+  "version": "0.1.0",
+  "dependencies": {
+    "gulp": "4.0.0",
+    "gulp-uncss": "1.0.6",
+    "gulp-concat": "2.6.1"
+  }
+}

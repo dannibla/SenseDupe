@@ -3,5 +3,16 @@
     "name": "Programming Language",
     "path": "pro-lang",
     "creator": "dannibla"
+  },
+  {
+    "name": "Angry Bird",
+    "path": "angry-bird",
+    "creator": "dannibla"
+  },
+  {
+    "name": "PUBG",
+    "path": "pubg",
+    "creator": "dannibla"
   }
+
 ]
