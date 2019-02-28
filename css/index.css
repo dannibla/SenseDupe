@@ -324,10 +324,12 @@ button:hover {
 }
 
 .level-contant {
+    color: white;
     width: 100%;
     border-radius: 10px;
     padding: 10px;
-    background: white;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.3);
 }
 
 
@@ -434,7 +436,12 @@ button:hover {
     transform-style: preserve-3d;
     transition: .4s ease-in-out;
     background: #fcfffe;
-    border-radius: 10px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
 }
 
     .card .inside.picked, .card .inside.matched {

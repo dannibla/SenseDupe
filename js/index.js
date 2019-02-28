@@ -1,5 +1,6 @@
 'use strict';
 var app = angular.module("myApp", ["ngRoute", "ngStorage"]);
+
 app.config(function ($routeProvider) {
     $routeProvider
         .when("/", {
@@ -16,15 +17,29 @@ app.config(function ($routeProvider) {
 });
 
 app.controller('levelCtrl', function ($scope, $http, $localStorage) {
-    if (!$localStorage.gameData) {
-        $http.get("sensedupe.json")
-            .then(function (response) {
+
+    $http.get("sensedupe.json")
+        .then(function (response) {
+            if (!$localStorage.gameData) {
                 $scope.myLevel = response.data;
                 $localStorage.gameData = $scope.myLevel;
-            });
-    } else {
-        $scope.myLevel = $localStorage.gameData;
+            } else {
+
+                if (response.data.length === $localStorage.gameData.length) {
+                    $scope.myLevel = $localStorage.gameData;
+                } else {
+                    $scope.myLevel = removeDuplicates($.merge($localStorage.gameData, response.data), 'path');
+                    $localStorage.gameData = $scope.myLevel;
+                }
+            }
+        });
+
+    function removeDuplicates(myArr, prop) {
+        return myArr.filter((obj, pos, arr) => {
+            return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+        });
     }
+
 });
 app.controller('playCtrl', function ($routeParams, $localStorage) {
 
@@ -40,8 +55,7 @@ app.controller('playCtrl', function ($routeParams, $localStorage) {
             this.cardsArray = $.merge(cards, cards);
             this.shuffleCards(this.cardsArray);
             this.setup();
-        },
-        setup: function () {
+        }, setup: function () {
             this.$header = this.buildHEADER();
             this.$head.html(this.$header);
             this.html = this.buildHTML();
@@ -54,8 +68,7 @@ app.controller('playCtrl', function ($routeParams, $localStorage) {
             this.time = 0;
             this.level = 1;
             this.binding();
-        },
-        quotes: [
+        }, quotes: [
             'Think little goals and expect little achievements. Think big goals and win big success.',
             'You were born to win, but to be a winner, you must plan to win, prepare to win, and expect to win.',
             'The true competitors, though, are the ones who always play to win.',
@@ -63,8 +76,7 @@ app.controller('playCtrl', function ($routeParams, $localStorage) {
             'To be a good loser is to learn how to win.',
             'I race to win. If I am on the bike or in a car it will always be the same.',
             'You can never quit. Winners never quit, and quitters never win.'
-        ],
-        setId: function (data, path) {
+        ], setId: function (data, path) {
             function dynamicId() {
                 var text = "";
                 var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -80,11 +92,9 @@ app.controller('playCtrl', function ($routeParams, $localStorage) {
                 data.push(obj);
             }
             this.setId = data;
-        },
-        shuffleCards: function () {
+        }, shuffleCards: function () {
             this.$cards = $(this.shuffle(this.cardsArray));
-        },
-        binding: function () {
+        }, binding: function () {
             var _ = Memory;
             this.$memoryCards.on("click", this.cardClicked);
             this.$restartButton.on("click", function () {
@@ -95,8 +105,7 @@ app.controller('playCtrl', function ($routeParams, $localStorage) {
                 $(".move h4").html(_.move);
                 $(".time h4").html(_.time + " <small>s</small>");
             }, 1000);
-        },
-        cardClicked: function () {
+        }, cardClicked: function () {
             var _ = Memory;
             var $card = $(this);
             _.move++;
@@ -120,11 +129,10 @@ app.controller('playCtrl', function ($routeParams, $localStorage) {
                     _.win();
                 }
             }
-        },
-        win: function () {
+        }, win: function () {
             var _ = Memory;
             this.paused = true;
-            var level_score, max_bonus, score;
+            var level_score, bonus_score, max_bonus, score;
             level_score = _.level * 100;
             max_bonus = 100000;
             bonus_score = max_bonus / (_.time + _.move + _.level * 10);
@@ -134,12 +142,11 @@ app.controller('playCtrl', function ($routeParams, $localStorage) {
                 _.showModal(score);
                 _.$game.fadeOut();
             }, 1000);
-        },
-        showModal: function (score) {
+        }, showModal: function (score) {
             var _ = Memory;
             this.$overlay.show();
             this.$modal.fadeIn("slow");
-            $quotes = _.quotes[Math.floor(Math.random() * _.quotes.length)];
+            var $quotes = _.quotes[Math.floor(Math.random() * _.quotes.length)];
             $(".winner").html($quotes);
             if ($localStorage.gameData && $routeParams.play) {
                 $localStorage.gameData.forEach(function (data) {
@@ -152,20 +159,19 @@ app.controller('playCtrl', function ($routeParams, $localStorage) {
                         }
                     }
                 });
+            } else {
+                $(".best h4").html(Math.round(score));
             }
             clearInterval(_.interval);
-        },
-        hideModal: function () {
+        }, hideModal: function () {
             this.$overlay.hide();
             this.$modal.hide();
-        },
-        reset: function () {
+        }, reset: function () {
             this.hideModal();
             this.shuffleCards(this.cardsArray);
             this.setup();
             this.$game.show("slow");
-        },
-        shuffle: function (array) {
+        }, shuffle: function (array) {
             var counter = array.length, temp, index;
             while (counter > 0) {
                 index = Math.floor(Math.random() * counter);
@@ -175,8 +181,7 @@ app.controller('playCtrl', function ($routeParams, $localStorage) {
                 array[index] = temp;
             }
             return array;
-        },
-        buildHTML: function () {
+        }, buildHTML: function () {
             var frag = '';
             this.$cards.each(function (k, v) {
                 frag += '<div class="card" data-id="' + v.id + '"><div class="inside">\
@@ -186,8 +191,7 @@ app.controller('playCtrl', function ($routeParams, $localStorage) {
                         </div>';
             });
             return frag;
-        },
-        buildHEADER: function () {
+        }, buildHEADER: function () {
             var frag = '';
             frag += '<div class="move"><h5>MOVE</h5>\
                         <h4>0</h4></div>\
@@ -198,6 +202,5 @@ app.controller('playCtrl', function ($routeParams, $localStorage) {
     };
 
     Memory.init($routeParams.play);
-
 
 });

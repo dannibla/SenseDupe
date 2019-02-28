@@ -1,8 +1,7 @@
 <div class="level" border="1">
     <div class="level-contant" ng-repeat="x in myLevel">
-        <div><h3>{{x.name}}</h3></div>
-        <div><h3>Best : {{x.best || 0000}}</h3></div>
-        <div>Creator : {{x.creator}}</div>
-        <div><a href="#!level/{{x.path}}">Play</a></div>
+        <div style="width: 15%;display: inline-block;">{{$index+1}}</div>
+        <div style="width: 60%;display: inline-block;"><h3>{{x.name}}</h3><h3>Best : {{x.best || 0000}}</h3>Creator : {{x.creator}}</div>
+        <div style="width: auto;display: inline-block;"><a href="#!level/{{x.path}}">Play</a></div>
     </div>
 </div>
