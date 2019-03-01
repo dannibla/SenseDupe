@@ -16,9 +16,8 @@ html, body {
 }
 
 body {
-    background: #43cea2;
-    background: -webkit-linear-gradient(to right, #185a9d, #43cea2);
-    background: linear-gradient(to right, #185a9d, #43cea2);
+    background: url(../images/bg.jpg);
+    background-size: cover;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     -webkit-transition: .5s;
     transition: .5s;
@@ -435,13 +434,8 @@ button:hover {
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
     transition: .4s ease-in-out;
-    background: #fcfffe;
-    border-radius: 8px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    -webkit-box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
-    box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.3);
+    background: url(../images/tile.png);
+    background-size: 100% 100%;
 }
 
     .card .inside.picked, .card .inside.matched {
